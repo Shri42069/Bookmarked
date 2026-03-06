@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --parchment: #faf4e8;
+  --parchment-dark: #f0e6cc;
+  --ink-deep: #1a1510;
+  --ink-mid: #2e2419;
+  --ink-soft: #4a3a2d;
+  --ink-light: #7a6049;
+  --spine-gold: #c9a84c;
+  --spine-rust: #b05c3a;
+  --spine-sage: #5f8060;
+  --spine-slate: #4a6070;
+  --spine-plum: #6b4c6b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--parchment);
+  color: var(--ink-deep);
+  font-family: var(--font-body), Georgia, serif;
+  min-height: 100vh;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+  font-family: var(--font-display), Georgia, serif;
+  color: var(--ink-deep);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--parchment-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink-light);
+  border-radius: 3px;
+}
+
+/* Custom selection */
+::selection {
+  background: rgba(201, 168, 76, 0.3);
+  color: var(--ink-deep);
+}
+
+/* Utility classes */
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 rounded-sm font-medium transition-all duration-200 cursor-pointer;
+    background: var(--ink-deep);
+    color: var(--parchment);
+    font-family: var(--font-body), serif;
+    letter-spacing: 0.03em;
+    border: none;
+  }
+  .btn-primary:hover {
+    background: var(--ink-mid);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(26, 21, 16, 0.2);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-ghost {
+    @apply px-5 py-2.5 rounded-sm font-medium transition-all duration-200 cursor-pointer;
+    background: transparent;
+    color: var(--ink-soft);
+    font-family: var(--font-body), serif;
+    border: 1px solid rgba(74, 58, 45, 0.3);
+  }
+  .btn-ghost:hover {
+    border-color: var(--ink-soft);
+    color: var(--ink-deep);
+    background: rgba(74, 58, 45, 0.05);
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-sm outline-none transition-all duration-200;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(74, 58, 45, 0.2);
+    color: var(--ink-deep);
+    font-family: var(--font-body), serif;
+    font-size: 0.95rem;
+  }
+  .input-field:focus {
+    border-color: var(--ink-soft);
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 0 0 3px rgba(74, 58, 45, 0.08);
+  }
+  .input-field::placeholder {
+    color: var(--ink-light);
+    opacity: 0.6;
+  }
+
+  .card {
+    @apply rounded-sm;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(74, 58, 45, 0.12);
+    backdrop-filter: blur(4px);
+  }
+
+  .tag-pill {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    background: rgba(74, 58, 45, 0.08);
+    color: var(--ink-soft);
+    border: 1px solid rgba(74, 58, 45, 0.12);
+  }
+
+  .status-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium;
+  }
+  .status-want {
+    background: rgba(180, 120, 60, 0.1);
+    color: #8B5E3C;
+    border: 1px solid rgba(180, 120, 60, 0.2);
+  }
+  .status-reading {
+    background: rgba(95, 128, 96, 0.1);
+    color: #3d6b3e;
+    border: 1px solid rgba(95, 128, 96, 0.25);
+  }
+  .status-completed {
+    background: rgba(74, 96, 112, 0.1);
+    color: #344f5e;
+    border: 1px solid rgba(74, 96, 112, 0.2);
+  }
+
+  .page-enter {
+    animation: slideUp 0.4s ease forwards;
+  }
+
+  .book-spine {
+    @apply relative rounded-sm overflow-hidden cursor-pointer transition-all duration-300;
+    box-shadow: 2px 3px 8px rgba(26, 21, 16, 0.15), inset -2px 0 4px rgba(0,0,0,0.1);
+  }
+  .book-spine:hover {
+    transform: translateY(-4px);
+    box-shadow: 4px 8px 20px rgba(26, 21, 16, 0.25), inset -2px 0 4px rgba(0,0,0,0.1);
+  }
+}
