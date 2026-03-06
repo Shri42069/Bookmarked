@@ -11,11 +11,25 @@ const cors = require('cors');
 const app = express();
 
 // Middleware
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:3001',
+  (process.env.CLIENT_URL || '').replace(/\/$/, ''),
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    const cleaned = origin.replace(/\/$/, '');
+    if (allowedOrigins.includes(cleaned)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
-app.use(express.json());
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
